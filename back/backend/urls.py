@@ -28,7 +28,7 @@ router.register(r'commodities/(?P<commodity>gold|silver)', CommodityPriceViewSet
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/v1/products/', include('products.urls')),
-    path('api/',include(router.urls)),
+    path('api/v1/',include(router.urls)),
 
 
     # DRF 기본 토큰 발급 (no CSRF)

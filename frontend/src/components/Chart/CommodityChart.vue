@@ -137,7 +137,7 @@ const chartOptions = {
 const fetchData = async () => {
   try {
     const years = props.commodity === 'gold' ? 3 : 1
-    const response = await api.get(`/api/v1/commodities/${props.commodity}`, {
+    const response = await api.get(`commodities/${props.commodity}`, {
       params: { years }
     })
     priceData.value = response.data

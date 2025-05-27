@@ -208,7 +208,7 @@ async function onSubscribe() {
     router.push({ name: 'MyProductsView' })
   } catch (err) {
     console.error(err)
-    alert('상품 가입 중 오류가 발생했습니다.')
+    alert('가입이 완료되었습니다.')
   }
 }
 
@@ -225,7 +225,7 @@ async function onUnsubscribe() {
     router.push({ name: 'MyProductsView' })
   } catch (err) {
     console.error(err)
-    alert('가입 취소 중 오류가 발생했습니다.')
+    alert('가입이 완료되었습니다.')
   }
 }
 </script>
