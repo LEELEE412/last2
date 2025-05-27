@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView           from '@/views/HomePage/HomeView.vue'
 import ProductsListView   from '@/views/Product/ProductsListView.vue'
 import MyProductsView     from '@/views/Product/MyProductsView.vue'
+import ChartView         from '@/views/Product/ChartView.vue'  // Add this line
 import LogInView          from '@/views/HomePage/LogInView.vue'
 import SignUpView         from '@/views/HomePage/SignUpView.vue'
 import { useUserStore }   from '@/stores/userStore'
@@ -34,6 +35,12 @@ const routes = [
     path: '/my-products',
     name: 'MyProducts',
     component: MyProductsView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/charts',
+    name: 'Charts',
+    component: ChartView,
     meta: { requiresAuth: true }
   },
   {
@@ -122,11 +129,9 @@ const router = createRouter({
   routes
 })
 
-// 전역 네비게이션 가드
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
   if (to.meta.requiresAuth && !userStore.isLogin) {
-    // 로그인 안 된 상태에서 상세조회(구독) 접근 시 로그인 페이지로
     next({ name: 'LogInView' })
   } else {
     next()
