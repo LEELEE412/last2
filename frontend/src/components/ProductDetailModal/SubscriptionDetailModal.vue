@@ -60,13 +60,14 @@ function formatDate(date) {
 
 async function cancelSubscription() {
   try {
-    const endpoint = props.subscription.product_name.includes('예금') 
-      ? 'deposit-products' 
-      : 'saving-products'
+    // Get the product type from the subscription
+    const isDeposit = props.subscription.product_name.includes('예금')
+    const endpoint = isDeposit ? 'deposit-products' : 'saving-products'
     
-    await api.delete(
-      `/products/${endpoint}/subscribe/${props.subscription.fin_prdt_cd}/`
-    )
+    // Make the DELETE request with the correct product code
+    await api.delete(`/api/v1/products/${endpoint}/subscribe/${props.subscription.product.fin_prdt_cd}/`)
+    
+    alert('가입이 취소되었습니다.')
     emit('cancelled')
     emit('close')
   } catch (err) {
