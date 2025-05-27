@@ -1,4 +1,3 @@
-<!-- Content from your provided chart code -->
 <template>
   <div class="chart-container">
     <div v-if="commodity === 'gold'" class="data-info">
@@ -48,7 +47,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
-import axios from 'axios'
+import api from '@/lib/axios'
 
 const props = defineProps({
   commodity: {
@@ -138,7 +137,7 @@ const chartOptions = {
 const fetchData = async () => {
   try {
     const years = props.commodity === 'gold' ? 3 : 1
-    const response = await axios.get(`/api/commodities/${props.commodity}`, {
+    const response = await api.get(`/prices/commodities/${props.commodity}`, {
       params: { years }
     })
     priceData.value = response.data
