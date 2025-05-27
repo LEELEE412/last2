@@ -137,7 +137,9 @@ const chartOptions = {
 const fetchData = async () => {
   try {
     const years = props.commodity === 'gold' ? 3 : 1
-    const response = await api.get(`/prices/commodities/${props.commodity}?years=${years}`)
+    const response = await api.get(`/commodities/${props.commodity}`, {
+      params: { years }
+    })
     priceData.value = response.data
 
     if (priceData.value.length > 0) {
