@@ -8,6 +8,8 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework import permissions
 from drf_yasg.views  import get_schema_view
 from drf_yasg       import openapi
+from rest_framework.routers import DefaultRouter
+from finance.views import DailyPriceViewSet,CommodityPriceViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -19,9 +21,14 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+router = DefaultRouter(trailing_slash=False)
+router.register(r'prices', DailyPriceViewSet, basename='prices')
+router.register(r'commodities/(?P<commodity>gold|silver)', CommodityPriceViewSet, basename='commodity-price')
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/v1/products/', include('products.urls')),
+    path('api/',include(router.urls)),
 
 
     # DRF 기본 토큰 발급 (no CSRF)
