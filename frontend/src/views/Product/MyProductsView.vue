@@ -7,6 +7,7 @@
         v-for="sub in subscriptions"
         :key="sub.id"
         class="product-card"
+        @click="showSubscriptionDetail(sub)"
       >
         <div class="product-info">
           <h3>{{ sub.bank_name }}</h3>
@@ -24,6 +25,14 @@
     </div>
     
     <p v-else class="no-products">아직 가입한 상품이 없습니다.</p>
+
+    <!-- Subscription Detail Modal -->
+    <SubscriptionDetailModal
+      v-if="selectedSubscription"
+      :subscription="selectedSubscription"
+      @close="selectedSubscription = null"
+      @cancelled="refreshSubscriptions"
+    />
   </div>
 </template>
 
@@ -31,21 +40,29 @@
 import { onMounted, ref } from 'vue'
 import dayjs from 'dayjs'
 import api from '@/lib/axios'
+import SubscriptionDetailModal from '@/components/ProductDetailModal/SubscriptionDetailModal.vue'
 
-const subscriptions = ref([]);
+const subscriptions = ref([])
+const selectedSubscription = ref(null)
 
-onMounted(async () => {
+async function refreshSubscriptions() {
   try {
     const response = await api.get('/accounts/profile/')
     subscriptions.value = response.data.active_subscriptions || []
   } catch (err) {
     console.error('Failed to fetch subscriptions:', err)
   }
-})
+}
+
+function showSubscriptionDetail(subscription) {
+  selectedSubscription.value = subscription
+}
 
 function formatDate(date) {
   return dayjs(date).format('YYYY-MM-DD')
 }
+
+onMounted(refreshSubscriptions)
 </script>
 
 <style scoped>
@@ -77,6 +94,7 @@ function formatDate(date) {
   border-radius: 8px;
   padding: 1.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 .product-card:hover {
