@@ -137,7 +137,7 @@ const chartOptions = {
 const fetchData = async () => {
   try {
     const years = props.commodity === 'gold' ? 3 : 1
-    const response = await api.get(`/prices/commodities/${props.commodity}`, {
+    const response = await axios.get(`http://127.0.0.1:8000/api/commodities/${props.commodity}`, {
       params: { years }
     })
     priceData.value = response.data
