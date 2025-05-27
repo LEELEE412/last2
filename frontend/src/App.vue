@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="container d-flex align-items-center justify-content-between">
-      <!-- 브랜드 로고 + 인사말 -->
+      <!-- Brand + Greeting -->
       <div class="brand-section d-flex align-items-center">
         <RouterLink to="/" class="navbar-brand logo">
           <span class="logo-primary">Fin</span><span class="logo-secondary">Trust</span>
@@ -11,7 +11,7 @@
         </span>
       </div>
 
-      <!-- 네비게이션 -->
+      <!-- Navigation -->
       <ul class="nav nav-pills">
         <li class="nav-item">
           <RouterLink
@@ -57,11 +57,12 @@
           <ul class="dropdown-menu">
             <li><RouterLink to="/products" class="dropdown-item">금리비교</RouterLink></li>
             <li><RouterLink to="/my-products" class="dropdown-item">내가 가입한 상품</RouterLink></li>
+            <li><RouterLink to="/charts" class="dropdown-item">시세 차트</RouterLink></li>
           </ul>
         </li>
       </ul>
 
-      <!-- 인증 버튼 영역: 내 프로필 / 로그아웃 or 회원가입·로그인 -->
+      <!-- Auth Buttons -->
       <div class="auth-buttons d-flex align-items-center">
         <Chatbot />
         <RouterLink
